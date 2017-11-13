@@ -15,13 +15,13 @@
         <excelfilename>@TOSPECIFY</excelfilename>
         <jenkinsresourcespath>src/test/resources</jenkinsresourcespath>
         <noraui.version>3.0.0</noraui.version>
-        <maven-compiler-plugin.version>3.1</maven-compiler-plugin.version>
-        <maven-resources-plugin.version>2.7</maven-resources-plugin.version>
-        <exec-maven-plugin.version>1.5.0</exec-maven-plugin.version>
-        <maven-surefire-plugin.version>2.19.1</maven-surefire-plugin.version>
-        <sonar-maven-plugin.version>3.0.1</sonar-maven-plugin.version>
-        <maven-javadoc-plugin.version>2.10.4</maven-javadoc-plugin.version>
-        <jacoco-maven-plugin.version>0.7.7.201606060606</jacoco-maven-plugin.version>
+        <maven-compiler-plugin.version>3.7.0</maven-compiler-plugin.version>
+        <maven-resources-plugin.version>3.0.2</maven-resources-plugin.version>
+        <exec-maven-plugin.version>1.6.0</exec-maven-plugin.version>
+        <maven-surefire-plugin.version>2.20.1</maven-surefire-plugin.version>
+        <sonar-maven-plugin.version>3.3.0.603</sonar-maven-plugin.version>
+        <maven-javadoc-plugin.version>3.0.0-M1</maven-javadoc-plugin.version>
+        <jacoco-maven-plugin.version>0.7.9</jacoco-maven-plugin.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <env>dev</env>
     </properties>
@@ -33,6 +33,20 @@
             <groupId>com.github.noraui</groupId>
             <artifactId>noraui</artifactId>
             <version>${noraui.version}</version>
+            <exclusions>
+                <exclusion>
+			        <groupId>com.oracle.jdbc</groupId>
+			        <artifactId>ojdbc8</artifactId>
+			    </exclusion>
+                <exclusion>
+			        <groupId>mysql</groupId>
+			        <artifactId>mysql-connector-java</artifactId>
+			    </exclusion>
+                <exclusion>
+			        <groupId>org.postgresql</groupId>
+			        <artifactId>postgresql</artifactId>
+			    </exclusion>
+		    </exclusions>
         </dependency>
 
     </dependencies>
@@ -43,8 +57,12 @@
             <url>http://repo.jenkins-ci.org/releases/</url>
         </repository>
         <repository>
-            <id>sonatype.org</id>
+            <id>sonatype-releases</id>
             <url>https://oss.sonatype.org/content/repositories/releases</url>
+        </repository>
+        <repository>
+            <id>sonatype-snapshots</id>
+            <url>https://oss.sonatype.org/content/repositories/snapshots</url>
         </repository>
     </repositories>
 
@@ -116,7 +134,7 @@
                 <sonar.host.url>http://172.0.0.1:10506</sonar.host.url>
                 <sonar.sources>${project.basedir}/src/main/java</sonar.sources>
                 <sonar.scm.provider>svn</sonar.scm.provider>
-                <sonar.jacoco.reportPath>${project.build.directory}/coverage-reports/jacoco-ut.exec</sonar.jacoco.reportPath>
+                <sonar.jacoco.reportPaths>${project.build.directory}/coverage-reports/jacoco-ut.exec</sonar.jacoco.reportPaths>
             </properties>
             <build>
                 <pluginManagement>
@@ -166,6 +184,9 @@
                                 </goals>
                                 <configuration>
                                     <mainClass>com.yourcompany.norarobot.indus.Counter</mainClass>
+                                    <arguments>
+                                        <argument>Excel</argument>
+                                    </arguments>
                                     <systemProperties>
                                         <systemProperty>
                                             <key>resourcespath</key>
@@ -375,9 +396,9 @@
             </properties>
         </profile>
         <profile>
-            <id>ic</id>
+            <id>ci</id>
             <properties>
-                <env>ic</env>
+                <env>ci</env>
             </properties>
         </profile>
         <profile>
