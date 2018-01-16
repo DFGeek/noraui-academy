@@ -1,9 +1,18 @@
 package com.yourcompany.norarobot.application.steps.jhipstersampleapp;
 
-import org.apache.log4j.Logger;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
+import com.github.noraui.application.steps.Step;
+import com.github.noraui.exception.FailureException;
+import com.github.noraui.exception.Result;
+import com.github.noraui.exception.TechnicalException;
+import com.github.noraui.utils.Context;
+import com.github.noraui.utils.Messages;
+import com.github.noraui.utils.Utilities;
+import com.google.inject.Inject;
 import com.yourcompany.norarobot.application.model.jhipstersampleapp.Customer;
 import com.yourcompany.norarobot.application.model.jhipstersampleapp.Customers;
 import com.yourcompany.norarobot.application.pages.jhipstersampleapp.CreateOrEditCustomerPage;
@@ -11,27 +20,16 @@ import com.yourcompany.norarobot.application.pages.jhipstersampleapp.CustomerPag
 
 import cucumber.api.java.en.And;
 import cucumber.api.java.en.Then;
-import noraui.application.page.Page;
-import noraui.application.steps.Step;
-import noraui.exception.FailureException;
-import noraui.exception.Result;
-import noraui.exception.TechnicalException;
-import noraui.utils.Context;
-import noraui.utils.Messages;
-import noraui.utils.Utilities;
 
 public class CustomerSteps extends Step {
 
-    private static Logger logger = Logger.getLogger(CustomerSteps.class.getName());
+    private static final Logger logger = LoggerFactory.getLogger(CustomerSteps.class.getName());
 
+    @Inject
     private CustomerPage customerPage;
+    
+    @Inject
     private CreateOrEditCustomerPage createOrEditCustomerPage;
-
-    public CustomerSteps() throws TechnicalException {
-        super();
-        this.customerPage = (CustomerPage) Page.getInstance(CustomerPage.class);
-        this.createOrEditCustomerPage = (CreateOrEditCustomerPage) Page.getInstance(CreateOrEditCustomerPage.class);
-    }
 
     /**
      * Check Customer page.
@@ -63,7 +61,7 @@ public class CustomerSteps extends Step {
     @And("I save '(.*)' from create message")
     public void saveIdFromCreateMessage(String field) throws FailureException {
         try {
-            WebElement message = Context.waitUntil(ExpectedConditions.presenceOfElementLocated(noraui.utils.Utilities.getLocator(customerPage.createMessage)));
+            WebElement message = Context.waitUntil(ExpectedConditions.presenceOfElementLocated(Utilities.getLocator(customerPage.createMessage)));
             String id = message.getText().replace("A new customer is created with identifier ", "");
             try {
                 Context.getCurrentScenario().write("create " + field + " is:\n" + id);

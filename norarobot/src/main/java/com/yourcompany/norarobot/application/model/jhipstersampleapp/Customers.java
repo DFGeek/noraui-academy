@@ -9,8 +9,8 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
 
-import noraui.model.Model;
-import noraui.model.ModelList;
+import com.github.noraui.model.Model;
+import com.github.noraui.model.ModelList;
 
 public class Customers extends ArrayList<Customer> implements ModelList {
 

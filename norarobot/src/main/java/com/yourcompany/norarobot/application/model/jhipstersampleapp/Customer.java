@@ -4,8 +4,8 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.annotations.Expose;
 
-import noraui.annotation.Column;
-import noraui.model.Model;
+import com.github.noraui.annotation.Column;
+import com.github.noraui.model.Model;
 
 public class Customer implements Model, Comparable<Customer> {
 

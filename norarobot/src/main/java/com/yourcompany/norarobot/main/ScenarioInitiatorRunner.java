@@ -2,7 +2,7 @@ package com.yourcompany.norarobot.main;
 
 import com.yourcompany.norarobot.utils.NoraRobotContext;
 
-import noraui.main.ScenarioInitiator;
+import com.github.noraui.main.ScenarioInitiator;
 
 public class ScenarioInitiatorRunner {
 

@@ -1,17 +1,19 @@
 package com.yourcompany.norarobot.utils;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
-import noraui.application.Application;
-import noraui.application.page.Page;
-import noraui.utils.Context;
+import com.github.noraui.application.Application;
+import com.github.noraui.application.page.Page;
+import com.github.noraui.exception.TechnicalException;
+import com.github.noraui.utils.Context;
 
 public class NoraRobotContext extends Context {
 
     /**
      * Specific logger.
      */
-    private static final Logger logger = Logger.getLogger(NoraRobotContext.class);
+    private static final Logger logger = LoggerFactory.getLogger(NoraRobotContext.class);
 
     public static final String JHIPSTERSAMPLEAPP_KEY = "jhipstersampleapp";
     public static final String JHIPSTERSAMPLEAPP_HOME = "JHIPSTERSAMPLEAPP_HOME";
@@ -35,12 +37,12 @@ public class NoraRobotContext extends Context {
      * {@inheritDoc}
      */
     @Override
-    public synchronized void initializeRobot(Class clazz) {
+    public synchronized void initializeRobot(Class clazz) throws TechnicalException {
         super.initializeRobot(clazz);
         logger.info("NoraRobotContext > initializeRobot()");
 
         // Urls configuration
-        jHipsterSampleAppHome = setProperty(JHIPSTERSAMPLEAPP_KEY, applicationProperties);
+        jHipsterSampleAppHome = getProperty(JHIPSTERSAMPLEAPP_KEY, applicationProperties);
 
         // Selectors configuration
         initApplicationDom(clazz.getClassLoader(), selectorsVersion, JHIPSTERSAMPLEAPP_KEY);

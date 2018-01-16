@@ -2,28 +2,24 @@ package com.yourcompany.norarobot.application.steps.jhipstersampleapp;
 
 import org.openqa.selenium.support.ui.ExpectedConditions;
 
+import com.github.noraui.application.steps.Step;
+import com.github.noraui.browser.Auth;
+import com.github.noraui.exception.FailureException;
+import com.github.noraui.exception.Result;
+import com.github.noraui.exception.TechnicalException;
+import com.github.noraui.utils.Context;
+import com.github.noraui.utils.Messages;
+import com.github.noraui.utils.Utilities;
+import com.google.inject.Inject;
 import com.yourcompany.norarobot.application.pages.jhipstersampleapp.JHipsterSampleAppPage;
 
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
-import noraui.application.page.Page;
-import noraui.application.steps.Step;
-import noraui.browser.Auth;
-import noraui.exception.FailureException;
-import noraui.exception.Result;
-import noraui.exception.TechnicalException;
-import noraui.utils.Context;
-import noraui.utils.Messages;
-import noraui.utils.Utilities;
 
 public class JHipsterSampleAppSteps extends Step {
 
+    @Inject
     private JHipsterSampleAppPage jHipsterSampleAppPage;
-
-    public JHipsterSampleAppSteps() throws TechnicalException {
-        super();
-        this.jHipsterSampleAppPage = (JHipsterSampleAppPage) Page.getInstance(JHipsterSampleAppPage.class);
-    }
 
     /**
      * Check Login page.
@@ -52,7 +48,7 @@ public class JHipsterSampleAppSteps extends Step {
     public void logInToJHipsterSampleApp(String login, String password) throws FailureException {
         try {
             Utilities.findElement(jHipsterSampleAppPage.accountMenu).click();
-            Context.waitUntil(ExpectedConditions.presenceOfElementLocated(noraui.utils.Utilities.getLocator(jHipsterSampleAppPage.signinMenu))).click();
+            Context.waitUntil(ExpectedConditions.presenceOfElementLocated(Utilities.getLocator(jHipsterSampleAppPage.signinMenu))).click();
 
             Context.waitUntil(ExpectedConditions.presenceOfElementLocated(Utilities.getLocator(jHipsterSampleAppPage.signInButton)));
             Utilities.findElement(jHipsterSampleAppPage.login).sendKeys(login);
@@ -72,7 +68,7 @@ public class JHipsterSampleAppSteps extends Step {
     @Then("The JHIPSTERSAMPLEAPP portal is displayed")
     public void checkJHipsterSampleAppPage() throws FailureException {
         try {
-            Context.waitUntil(ExpectedConditions.presenceOfElementLocated(noraui.utils.Utilities.getLocator(jHipsterSampleAppPage.signInMessage)));
+            Context.waitUntil(ExpectedConditions.presenceOfElementLocated(Utilities.getLocator(jHipsterSampleAppPage.signInMessage)));
             if (!jHipsterSampleAppPage.isDisplayed()) {
                 logInToJHipsterSampleAppWithNoraRobot();
             }
@@ -98,7 +94,7 @@ public class JHipsterSampleAppSteps extends Step {
         if (Auth.isConnected()) {
             getDriver().switchTo().defaultContent();
             clickOn(jHipsterSampleAppPage.accountMenu);
-            Context.waitUntil(ExpectedConditions.presenceOfElementLocated(noraui.utils.Utilities.getLocator(jHipsterSampleAppPage.signoutMenu))).click();
+            Context.waitUntil(ExpectedConditions.presenceOfElementLocated(Utilities.getLocator(jHipsterSampleAppPage.signoutMenu))).click();
         }
     }
 

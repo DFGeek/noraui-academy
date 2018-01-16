@@ -6,8 +6,8 @@ import java.util.List;
 
 import com.yourcompany.norarobot.utils.NoraRobotContext;
 
-import noraui.indus.MavenRunCounter;
-import noraui.utils.Context;
+import com.github.noraui.indus.MavenRunCounter;
+import com.github.noraui.utils.Context;
 
 public class Counter {
 
@@ -24,7 +24,7 @@ public class Counter {
 
         MavenRunCounter mavenRunCounter = new MavenRunCounter();
         List<MavenRunCounter.Counter> counters = mavenRunCounter.count(versionControlSystemsBlacklist, scenarioBlacklist, manager, new File(Context.getResourcesPath() + "/steps"));
-        mavenRunCounter.print(counters);
+        mavenRunCounter.print(counters, args[0]);
     }
 
 }

@@ -2,17 +2,18 @@ package com.yourcompany.norarobot.application.pages.jhipstersampleapp;
 
 import static com.yourcompany.norarobot.utils.NoraRobotContext.JHIPSTERSAMPLEAPP_KEY;
 
-import org.apache.log4j.Logger;
 import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import com.yourcompany.norarobot.utils.NoraRobotContext;
 
-import noraui.application.page.Page;
-import noraui.utils.Context;
+import com.github.noraui.application.page.Page;
+import com.github.noraui.utils.Context;
 
 public class JHipsterSampleAppPage extends Page {
 
-    private static Logger logger = Logger.getLogger(JHipsterSampleAppPage.class.getName());
+    private static final Logger logger = LoggerFactory.getLogger(JHipsterSampleAppPage.class.getName());
 
     public final PageElement accountMenu = new PageElement("-accountMenu", "Account menu");
     public final PageElement signinMenu = new PageElement("-signinMenu", "Sign-in menu");
