@@ -20,16 +20,18 @@ public class NoraRobotContext extends Context {
      */
     private static final Logger logger = LoggerFactory.getLogger(NoraRobotContext.class);
 
+    // applications
     public static final String JHIPSTERSAMPLEAPP_KEY = "jhipstersampleapp";
     public static final String JHIPSTERSAMPLEAPP_HOME = "JHIPSTERSAMPLEAPP_HOME";
+    private String jHipsterSampleAppHome;
+    
     public static final String JHIPSTERSAMPLEAPP_CUSTOMER = "JHIPSTERSAMPLEAPP_CUSTOMER";
     public static final String JHIPSTERSAMPLEAPP_APP = "jhipstersampleapp.app";
 
+    // targets
     public static final String GO_TO_JHIPSTERSAMPLEAPP_HOME = "GO_TO_JHIPSTERSAMPLEAPP_HOME";
     public static final String CLOSE_WINDOW_AND_SWITCH_TO_JHIPSTERSAMPLEAPP_HOME = "CLOSE_WINDOW_AND_SWITCH_TO_JHIPSTERSAMPLEAPP_HOME";
     public static final String CLOSE_ALL_WINDOWS_AND_SWITCH_TO_JHIPSTERSAMPLEAPP_HOME = "CLOSE_ALL_WINDOWS_AND_SWITCH_TO_JHIPSTERSAMPLEAPP_HOME";
-
-    private String jHipsterSampleAppHome; // JHIPSTERSAMPLEAPP home url
 
     /**
      * Constructor is useless because all attributes are static
@@ -52,10 +54,12 @@ public class NoraRobotContext extends Context {
         // Selectors configuration
         initApplicationDom(clazz.getClassLoader(), selectorsVersion, JHIPSTERSAMPLEAPP_KEY);
 
+        // Exception Callbacks
         exceptionCallbacks.put(GO_TO_JHIPSTERSAMPLEAPP_HOME, STEPS_BROWSER_STEPS_CLASS_QUALIFIED_NAME, GO_TO_URL_METHOD_NAME, JHIPSTERSAMPLEAPP_HOME);
         exceptionCallbacks.put(CLOSE_WINDOW_AND_SWITCH_TO_JHIPSTERSAMPLEAPP_HOME, STEPS_BROWSER_STEPS_CLASS_QUALIFIED_NAME, "closeWindowAndSwitchTo", JHIPSTERSAMPLEAPP_KEY, JHIPSTERSAMPLEAPP_HOME);
         exceptionCallbacks.put(CLOSE_ALL_WINDOWS_AND_SWITCH_TO_JHIPSTERSAMPLEAPP_HOME, STEPS_BROWSER_STEPS_CLASS_QUALIFIED_NAME, "closeAllWindowsAndSwitchTo", JHIPSTERSAMPLEAPP_KEY);
 
+        // applications mapping
         Application jHipsterSampleApp = new Application(JHIPSTERSAMPLEAPP_HOME, jHipsterSampleAppHome);
         jHipsterSampleApp.addUrlPage(JHIPSTERSAMPLEAPP_CUSTOMER, jHipsterSampleAppHome + "/#/customer");
         applications.put(JHIPSTERSAMPLEAPP_KEY, jHipsterSampleApp);
@@ -75,6 +79,7 @@ public class NoraRobotContext extends Context {
         return instance;
     }
 
+    // home getters
     public String getJHipsterSampleAppHome() {
         return jHipsterSampleAppHome;
     }
